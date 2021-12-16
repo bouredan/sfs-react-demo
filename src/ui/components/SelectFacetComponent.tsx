@@ -1,23 +1,24 @@
-import {useState} from "react";
-import {IBindings} from "fetch-sparql-endpoint";
-
 import {FormControl, InputLabel, MenuItem, Select, SelectChangeEvent} from "@mui/material";
 
-import {FacetConfig} from "../api/Facet";
+import {FacetConfig} from "../../api/facets/Facet";
+import {useFacet} from "../hooks/useFacet";
 
 export interface FacetComponentProps {
   facet: FacetConfig,
-  options: IBindings[],
 }
 
-export function SelectFacetComponent({facet, options}: FacetComponentProps) {
+export function SelectFacetComponent({facet}: FacetComponentProps) {
 
-  const [value, setValue] = useState("");
+  const {
+    facetStats,
+    selectedValue,
+    onChange,
+  } = useFacet(facet.id, "");
 
   const labelId = `${facet.id}-select-label`;
 
   const handleChange = (event: SelectChangeEvent) => {
-    setValue(event.target.value);
+    onChange(event.target.value);
   };
 
   return (
@@ -27,13 +28,13 @@ export function SelectFacetComponent({facet, options}: FacetComponentProps) {
       </InputLabel>
       <Select
         labelId={labelId}
-        value={value}
+        value={selectedValue}
         label={facet.name}
         onChange={handleChange}
       >
-        {options.map(option => (
-          <MenuItem key={option[facet.id].value}>
-            {option[facet.id].value}
+        {Object.entries(facetStats).map(([label, count]) => (
+          <MenuItem key={label} value={label}>
+            {label} ({count})
           </MenuItem>
         ))}
       </Select>

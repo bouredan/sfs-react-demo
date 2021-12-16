@@ -2,11 +2,11 @@ import {useEffect, useState} from "react";
 import {IBindings} from "fetch-sparql-endpoint";
 import {VariableTerm} from "sparqljs";
 
-import {Table, TableBody, TableCell, TableHead, TableRow} from "@mui/material";
+import {Button, Table, TableBody, TableCell, TableHead, TableRow} from "@mui/material";
 
 import {SelectFacetComponent} from "./SelectFacetComponent";
-import {FacetSearchApi} from "../api/FacetSearchApi";
-import {FacetConfig} from "../api/Facet";
+import {FacetSearchApi} from "../../api/FacetSearchApi";
+import {FacetConfig} from "../../api/facets/Facet";
 import {CheckboxFacetComponent} from "./CheckboxFacetComponent";
 
 
@@ -24,36 +24,43 @@ const genreFacet: FacetConfig = {
   predicate: "dbp:genre"
 };
 
-const facets = [birthPlaceFacet, genreFacet];
+const facetConfigs = [birthPlaceFacet, genreFacet];
+
+export const sfsApi = new FacetSearchApi({
+  endpointUrl: "https://dbpedia.org/sparql",
+  facetConfigs: facetConfigs,
+  prefixes: `
+        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+        PREFIX dbp: <http://dbpedia.org/property/>
+        PREFIX dbo: <http://dbpedia.org/ontology/>
+        PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+      `
+});
 
 export function FacetSearch() {
 
   const [variables, setVariables] = useState<VariableTerm[]>([]);
   const [bindings, setBindings] = useState<IBindings[]>([]);
 
-  useEffect(() => {
-    const facetSearchApi = new FacetSearchApi({
-      endpointUrl: "https://dbpedia.org/sparql",
-      facetConfigs: facets,
-      prefixes: `
-        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-        PREFIX dbp: <http://dbpedia.org/property/>
-        PREFIX dbo: <http://dbpedia.org/ontology/>
-        PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-      `
-    });
-    //facetSearchApi.setValue(birthPlaceFacet.id, "<http://dbpedia.org/resource/UAE>");
-    facetSearchApi.fetchResults()
+  const fetchResults = () => {
+    return sfsApi.fetchResults()
       .then(({variables, bindings}) => {
         setVariables(variables);
         setBindings(bindings);
-      })
+      });
+  }
+
+  useEffect(() => {
+    fetchResults();
   }, []);
 
   return (
     <div>
-      <SelectFacetComponent facet={birthPlaceFacet} options={bindings}/>
-      <CheckboxFacetComponent facet={genreFacet} options={bindings}/>
+      <SelectFacetComponent facet={birthPlaceFacet}/>
+      <CheckboxFacetComponent facet={genreFacet}/>
+      <Button onClick={fetchResults}>
+        Fetch results
+      </Button>
       <Table size="small">
         <TableHead>
           <TableRow>

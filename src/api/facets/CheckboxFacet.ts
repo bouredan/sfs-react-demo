@@ -21,8 +21,8 @@ export class CheckboxFacet implements Facet {
     }`;
     const whereClauses = this.values.length > 0 ? this.values.map(value => (
       `{
-         BIND(${value} AS ?${this.facetId})
-         ?id ${this.predicate} ${value} . 
+         BIND(<${value}> AS ?${this.facetId})
+         ?id ${this.predicate} <${value}> . 
       }`
     )).join(" UNION ") : "";
     return whereClauses + optionalClause;

@@ -15,8 +15,8 @@ export class SelectFacet implements Facet {
   }
 
   public generateSparql(): string {
-    const whereClause = `BIND(${this.value} AS ?${this.facetId})
-                         ?id ${this.predicate} ${this.value} . `
+    const whereClause = `BIND(<${this.value}> AS ?${this.facetId})
+                         ?id ${this.predicate} <${this.value}> . `
     return (
       `${this.value ? whereClause : ""}
       OPTIONAL { 

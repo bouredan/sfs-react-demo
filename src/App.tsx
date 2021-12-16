@@ -1,6 +1,6 @@
 import {Container} from "@mui/material";
 
-import {FacetSearch} from "./components/FacetSearch";
+import {FacetSearch} from "./ui/components/FacetSearch";
 
 function App() {
   return (
