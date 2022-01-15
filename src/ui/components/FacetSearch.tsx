@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import {IBindings} from "fetch-sparql-endpoint";
 import {VariableTerm} from "sparqljs";
 
-import {Button, Table, TableBody, TableCell, TableHead, TableRow} from "@mui/material";
+import {Button, Grid, Table, TableBody, TableCell, TableHead, TableRow} from "@mui/material";
 
 import {SelectFacetComponent} from "./SelectFacetComponent";
 import {FacetSearchApi} from "../../api/FacetSearchApi";
@@ -55,30 +55,36 @@ export function FacetSearch() {
   }, []);
 
   return (
-    <div>
-      <SelectFacetComponent facet={birthPlaceFacet}/>
-      <CheckboxFacetComponent facet={genreFacet}/>
-      <Button onClick={fetchResults}>
-        Fetch results
-      </Button>
-      <Table size="small">
-        <TableHead>
-          <TableRow>
-            {variables.map((variable, index) => (
-              <TableCell key={index}>{variable.value}</TableCell>
-            ))}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {bindings.map((row, index) => (
-            <TableRow key={index}>
-              {Object.entries(row).map(entry => (
-                <TableCell key={`${index + entry[0]}`}>{entry[1].value}</TableCell>
+    <Grid container spacing={2} style={{padding: '16px'}}>
+      <Grid item xs={3}>
+        <SelectFacetComponent facet={birthPlaceFacet}/>
+        <CheckboxFacetComponent facet={genreFacet}/>
+        <div>
+          <Button variant="outlined" onClick={fetchResults}>
+            Fetch results
+          </Button>
+        </div>
+      </Grid>
+      <Grid item xs>
+        <Table size="small">
+          <TableHead>
+            <TableRow>
+              {variables.map((variable, index) => (
+                <TableCell key={index}>{variable.value}</TableCell>
               ))}
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </div>
+          </TableHead>
+          <TableBody>
+            {bindings.map((row, index) => (
+              <TableRow key={index}>
+                {Object.entries(row).map(entry => (
+                  <TableCell key={`${index + entry[0]}`}>{entry[1].value}</TableCell>
+                ))}
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </Grid>
+    </Grid>
   );
 }

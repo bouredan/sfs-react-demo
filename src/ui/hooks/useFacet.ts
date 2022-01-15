@@ -16,7 +16,7 @@ export function useFacet<Value>(facetId: string, initialValue: Value) {
 
   useEffect(() => {
     const handleFacetChanged = (newFacetState: FacetStats) => {
-      setFacetStats(newFacetState)
+      setFacetStats(newFacetState);
     };
     sfsApi.subscribeToFacetState(facetId, handleFacetChanged);
 
