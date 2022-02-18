@@ -1,6 +1,7 @@
+import {FacetConfig} from "sfs-api/facets/Facet";
+
 import {FormControl, InputLabel, MenuItem, Select, SelectChangeEvent} from "@mui/material";
 
-import {FacetConfig} from "../../api/facets/Facet";
 import {useFacet} from "../hooks/useFacet";
 
 export interface FacetComponentProps {

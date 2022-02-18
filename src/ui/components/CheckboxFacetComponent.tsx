@@ -1,8 +1,9 @@
+import {ChangeEvent} from "react";
+
 import {Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel} from "@mui/material";
 
 import {FacetComponentProps} from "./SelectFacetComponent";
 import {useFacet} from "../hooks/useFacet";
-import {ChangeEvent} from "react";
 
 export function CheckboxFacetComponent({facet}: FacetComponentProps) {
 

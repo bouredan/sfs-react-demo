@@ -1,8 +1,7 @@
 import {useCallback, useEffect, useState} from "react"
+import {FacetStats} from "sfs-api/api/FacetSearchApi";
 
 import {sfsApi} from "../components/FacetSearch";
-import {FacetStats} from "../../api/FacetSearchApi";
-
 
 export function useFacet<Value>(facetId: string, initialValue: Value) {
 

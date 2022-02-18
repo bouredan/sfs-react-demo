@@ -1,12 +1,12 @@
 import {useEffect, useState} from "react";
 import {IBindings} from "fetch-sparql-endpoint";
 import {VariableTerm} from "sparqljs";
+import {FacetSearchApi} from "sfs-api/api/FacetSearchApi";
+import {FacetConfig} from "sfs-api/facets/Facet";
 
 import {Button, Grid, Table, TableBody, TableCell, TableHead, TableRow} from "@mui/material";
 
 import {SelectFacetComponent} from "./SelectFacetComponent";
-import {FacetSearchApi} from "../../api/FacetSearchApi";
-import {FacetConfig} from "../../api/facets/Facet";
 import {CheckboxFacetComponent} from "./CheckboxFacetComponent";
 
 
