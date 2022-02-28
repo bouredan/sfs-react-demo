@@ -1,8 +1,6 @@
 import {useEffect, useState} from "react";
-import {IBindings} from "fetch-sparql-endpoint";
 import {VariableTerm} from "sparqljs";
-import {FacetSearchApi} from "sfs-api/api/FacetSearchApi";
-import {FacetConfig} from "sfs-api/facets/Facet";
+import {FacetSearchApi, FacetConfig, Bindings} from "@bouredan/sfs-api";
 
 import {Button, Grid, Table, TableBody, TableCell, TableHead, TableRow} from "@mui/material";
 
@@ -40,7 +38,7 @@ export const sfsApi = new FacetSearchApi({
 export function FacetSearch() {
 
   const [variables, setVariables] = useState<VariableTerm[]>([]);
-  const [bindings, setBindings] = useState<IBindings[]>([]);
+  const [bindings, setBindings] = useState<Bindings[]>([]);
 
   const fetchResults = () => {
     return sfsApi.fetchResults()

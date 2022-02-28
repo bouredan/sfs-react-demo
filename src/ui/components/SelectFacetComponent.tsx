@@ -1,8 +1,9 @@
-import {FacetConfig} from "sfs-api/facets/Facet";
+import {FacetConfig} from "@bouredan/sfs-api";
 
 import {FormControl, InputLabel, MenuItem, Select, SelectChangeEvent} from "@mui/material";
 
 import {useFacet} from "../hooks/useFacet";
+import {sfsApi} from "./FacetSearch";
 
 export interface FacetComponentProps {
   facet: FacetConfig,
@@ -11,10 +12,10 @@ export interface FacetComponentProps {
 export function SelectFacetComponent({facet}: FacetComponentProps) {
 
   const {
-    facetStats,
+    facetOptions,
     selectedValue,
     onChange,
-  } = useFacet(facet.id, "");
+  } = useFacet(sfsApi, facet.id, "");
 
   const labelId = `${facet.id}-select-label`;
 
@@ -33,7 +34,7 @@ export function SelectFacetComponent({facet}: FacetComponentProps) {
         label={facet.name}
         onChange={handleChange}
       >
-        {Object.entries(facetStats).map(([label, count]) => (
+        {Object.entries(facetOptions).map(([label, count]) => (
           <MenuItem key={label} value={label}>
             {label} ({count})
           </MenuItem>

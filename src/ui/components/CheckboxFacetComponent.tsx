@@ -4,14 +4,15 @@ import {Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel} from "@mu
 
 import {FacetComponentProps} from "./SelectFacetComponent";
 import {useFacet} from "../hooks/useFacet";
+import {sfsApi} from "./FacetSearch";
 
 export function CheckboxFacetComponent({facet}: FacetComponentProps) {
 
   const {
-    facetStats,
+    facetOptions,
     selectedValue,
     onChange
-  } = useFacet<string[]>(facet.id, []);
+  } = useFacet<string[]>(sfsApi, facet.id, []);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const newSelectedValue = event.target.checked ? [...selectedValue, event.target.value] : selectedValue.filter(val => val !== event.target.value)
@@ -24,7 +25,7 @@ export function CheckboxFacetComponent({facet}: FacetComponentProps) {
         {facet.name}
       </FormLabel>
       <FormGroup>
-        {Object.entries(facetStats).map(([label, count]) => (
+        {Object.entries(facetOptions).map(([label, count]) => (
           <FormControlLabel
             key={label}
             label={`${label} (${count})`}

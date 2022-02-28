@@ -1,31 +1,29 @@
 import {useCallback, useEffect, useState} from "react"
-import {FacetStats} from "sfs-api/api/FacetSearchApi";
+import {FacetOptions, FacetSearchApi} from "@bouredan/sfs-api";
 
-import {sfsApi} from "../components/FacetSearch";
-
-export function useFacet<Value>(facetId: string, initialValue: Value) {
+export function useFacet<Value>(facetSearchApi: FacetSearchApi, facetId: string, initialValue: Value) {
 
   const [selectedValue, setSelectedValue] = useState<Value>(initialValue);
-  const [facetStats, setFacetStats] = useState<FacetStats>({});
+  const [facetOptions, setFacetOptions] = useState<FacetOptions>({});
 
   const onChange = useCallback((selectedValue: Value) => {
     setSelectedValue(selectedValue);
-    sfsApi.setValue(facetId, selectedValue);
-  }, [facetId]);
+    facetSearchApi.setValue(facetId, selectedValue);
+  }, [facetId, facetSearchApi]);
 
   useEffect(() => {
-    const handleFacetChanged = (newFacetState: FacetStats) => {
-      setFacetStats(newFacetState);
+    const handleFacetChanged = (newFacetState: FacetOptions) => {
+      setFacetOptions(newFacetState);
     };
-    sfsApi.subscribeToFacetState(facetId, handleFacetChanged);
+    facetSearchApi.subscribeToFacetState(facetId, handleFacetChanged);
 
     return () => {
-      sfsApi.unsubscribeToFacetState(facetId, handleFacetChanged);
+      facetSearchApi.unsubscribeToFacetState(facetId, handleFacetChanged);
     };
-  }, [facetId]);
+  }, [facetId, facetSearchApi]);
 
   return {
-    facetStats,
+    facetOptions,
     selectedValue,
     onChange,
   };
