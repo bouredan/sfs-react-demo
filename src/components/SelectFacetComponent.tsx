@@ -1,5 +1,5 @@
-import {Facet} from "@bouredan/sfs-api/dist";
-import {useFacet} from "../tmp/useFacet";
+import {Facet} from "@bouredan/sfs-api";
+import {useFacet} from "@bouredan/react-sfs";
 
 import {FormControl, InputLabel, MenuItem, Select, SelectChangeEvent} from "@mui/material";
 

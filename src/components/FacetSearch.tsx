@@ -1,5 +1,5 @@
 import {useEffect} from "react";
-import {SfsContextProvider, useFacetSearch} from "../tmp/SfsContext";
+import {SfsContextProvider, useFacetSearch} from "@bouredan/react-sfs";
 
 import {Button, Grid} from "@mui/material";
 

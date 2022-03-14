@@ -1,5 +1,5 @@
 import {ChangeEvent} from "react";
-import {useFacet} from "../tmp/useFacet";
+import {useFacet} from "@bouredan/react-sfs";
 
 import {Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel} from "@mui/material";
 

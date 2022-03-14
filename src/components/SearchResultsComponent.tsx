@@ -1,4 +1,4 @@
-import {useFacetSearch} from "../tmp/SfsContext";
+import {useFacetSearch} from "@bouredan/react-sfs";
 
 import {Table, TableBody, TableCell, TableHead, TableRow} from "@mui/material";
 

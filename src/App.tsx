@@ -1,9 +1,10 @@
-import {CheckboxFacet, SelectFacet, SfsApi} from "@bouredan/sfs-api/dist";
-import { SfsContextProvider } from "./tmp/SfsContext";
+import {CheckboxFacet, SfsApi} from "@bouredan/sfs-api";
+import {SfsContextProvider} from "@bouredan/react-sfs";
 
 import {FacetSearch} from "./components/FacetSearch";
+import {CustomFacet} from "./CustomFacet";
 
-export const birthPlaceFacet = new SelectFacet({
+export const birthPlaceFacet = new CustomFacet({
   id: "birthPlace",
   predicate: "dbp:birthPlace",
   initialValue: "",
