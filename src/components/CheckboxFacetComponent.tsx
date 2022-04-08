@@ -5,32 +5,43 @@ import {Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel} from "@mu
 
 import {FacetComponentProps} from "./SelectFacetComponent";
 
-export function CheckboxFacetComponent({label, facet}: FacetComponentProps<string[]>) {
+export function CheckboxFacetComponent({facetLabel, facet}: FacetComponentProps<string[]>) {
 
   const {
     facetOptions,
     selectedValue,
-    onChange
+    onValueChange,
   } = useFacet(facet);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const newSelectedValue = event.target.checked ? [...selectedValue, event.target.value] : selectedValue.filter(val => val !== event.target.value)
-    onChange(newSelectedValue);
+    const value = selectedValue ?? []
+    const newSelectedValue = event.target.checked ? [...value, event.target.value] : value.filter(val => val !== event.target.value)
+    onValueChange(newSelectedValue);
   };
 
   return (
     <FormControl component="fieldset" size="small">
       <FormLabel component="legend">
-        {label}
+        {facetLabel}
       </FormLabel>
       <FormGroup>
-        {Object.entries(facetOptions).map(([label, count]) => (
-          <FormControlLabel
-            key={label}
-            label={`${label} (${count})`}
-            control={<Checkbox value={label} onChange={handleChange} name={label}/>}
-          />
-        ))}
+        {Object.values(facetOptions).map((bindings, index) => {
+          const option = bindings[facet.id].value;
+          const optionLabel = `${bindings[facet.id + "Label"].value}`;
+          return (
+            <FormControlLabel
+              key={option}
+              label={optionLabel}
+              control={
+                <Checkbox
+                  value={option}
+                  name={optionLabel}
+                  onChange={handleChange}
+                />
+              }
+            />
+          );
+        })}
       </FormGroup>
     </FormControl>
   );

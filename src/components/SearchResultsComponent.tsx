@@ -1,33 +1,59 @@
-import {useFacetSearch} from "@bouredan/react-sfs";
+import {useEffect, useState} from "react";
+import {
+  Box,
+  LinearProgress,
+  Link,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow
+} from "@mui/material";
+import {Results} from "@bouredan/sfs-api";
 
-import {Table, TableBody, TableCell, TableHead, TableRow} from "@mui/material";
+import {sfsApi} from "../config/FacetSearchConfig";
+
 
 export function SearchResultsComponent() {
 
-  const {searchResults} = useFacetSearch();
+  const [results, setResults] = useState<Results>();
+  const [isFetching, setIsFetching] = useState(false);
 
-  if (!searchResults) {
-    return <div/>;
-  }
+  useEffect(() => {
+    sfsApi.attachResultsSubscriber(setResults);
+    setIsFetching(true);
+    sfsApi.fetchResults()
+      .then(() => setIsFetching(false));
+  }, []);
 
   return (
-    <Table size="small">
-      <TableHead>
-        <TableRow>
-          {searchResults.variables.map((variable, index) => (
-            <TableCell key={index}>{variable.value}</TableCell>
-          ))}
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {searchResults.bindings.map((row, index) => (
-          <TableRow key={index}>
-            {Object.entries(row).map(entry => (
-              <TableCell key={`${index + entry[0]}`}>{entry[1].value}</TableCell>
+    <Box>
+      <Box visibility={isFetching ? "visible" : "hidden"}>
+        <LinearProgress/>
+      </Box>
+      <TableContainer>
+        <Table size="small">
+          <TableHead>
+            <TableRow>
+              <TableCell>
+                Pojem
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {!!results && results.bindings.map(bindings => (
+              <TableRow key={bindings.id.value}>
+                <TableCell>
+                  <Link href={bindings.id.value}>
+                    {bindings.label.value}
+                  </Link>
+                </TableCell>
+              </TableRow>
             ))}
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Box>
   );
 }

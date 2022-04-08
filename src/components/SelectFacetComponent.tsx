@@ -1,44 +1,51 @@
-import {Facet} from "@bouredan/sfs-api";
-import {useFacet} from "@bouredan/react-sfs";
-
+import {useEffect, useState} from "react";
 import {FormControl, InputLabel, MenuItem, Select, SelectChangeEvent} from "@mui/material";
+import {Facet, FacetOption} from "@bouredan/sfs-api";
+
 
 export interface FacetComponentProps<Value> {
-  label: string,
+  facetLabel: string,
   facet: Facet<Value>,
 }
 
-export function SelectFacetComponent({label, facet}: FacetComponentProps<string>) {
-
-  const {
-    facetOptions,
-    selectedValue,
-    onChange,
-  } = useFacet(facet);
+export function SelectFacetComponent({facetLabel, facet}: FacetComponentProps<string>) {
 
   const labelId = `${facet.id}-select-label`;
 
+  const [options, setOptions] = useState<FacetOption[]>();
+  const [value, setValue] = useState("");
+
+  useEffect(() => {
+    // document.addEventListener(facet.id, ((event: CustomEvent<FacetOption[]>) => {
+    //   setOptions(event.detail);
+    // }) as EventListener);
+    facet.attachSubscriber(setOptions);
+    facet.refreshOptions();
+  }, [facet]);
+
+
   const handleChange = (event: SelectChangeEvent) => {
-    onChange(event.target.value);
+    facet.setValue(event.target.value);
+    setValue(event.target.value);
   };
 
   return (
     <FormControl fullWidth>
       <InputLabel id={labelId}>
-        {label}
+        {facetLabel}
       </InputLabel>
       <Select
         labelId={labelId}
-        value={selectedValue}
-        label={label}
+        value={value}
+        label={facetLabel}
         onChange={handleChange}
       >
         <MenuItem value="">
           <em>None</em>
         </MenuItem>
-        {Object.entries(facetOptions).map(([label, count]) => (
-          <MenuItem key={label} value={label}>
-            {label} ({count})
+        {!!options && options.map(option => (
+          <MenuItem key={option.value} value={option.value}>
+            ({option.count}) {option.label}
           </MenuItem>
         ))}
       </Select>

@@ -5,7 +5,7 @@ import {FacetSearch} from "./components/FacetSearch";
 
 function App() {
   return (
-    <div className="App">
+    <div>
       <SfsContextProvider sfsApi={sfsApi}>
         <FacetSearch/>
       </SfsContextProvider>
