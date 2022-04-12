@@ -15,7 +15,7 @@ import {Results} from "@bouredan/sfs-api";
 import {sfsApi} from "../config/FacetSearchConfig";
 
 
-export function SearchResultsComponent() {
+export function ResultsComponent() {
 
   const [results, setResults] = useState<Results>();
   const [isFetching, setIsFetching] = useState(false);

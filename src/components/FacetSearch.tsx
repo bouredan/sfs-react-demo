@@ -1,20 +1,33 @@
-import {Grid} from "@mui/material";
+import {useState} from "react";
+import {Box, Button, TextField} from "@mui/material";
 
-import {glosaryFacet} from "../config/FacetSearchConfig";
-import {SearchResultsComponent} from "./SearchResultsComponent";
-import {SelectFacetComponent} from "./SelectFacetComponent";
+import {birthPlaceFacet, sfsApi} from "../config/FacetSearchConfig";
+import {CheckboxFacetComponent} from "./CheckboxFacetComponent";
 
 
 export function FacetSearch() {
 
+  const [searchPattern, setSearchPattern] = useState("");
+
+  const handleSearch = () => {
+    sfsApi.fetchResults(searchPattern);
+  };
+
+  // const parsed = sfsApi.sparqlParser.parse("SELECT * WHERE { " +
+  //   "VALUES ?birthPlace {<http://dbpedia.org/resource/United_Kingdom> <http://dbpedia.org/resource/Japan>} " +
+  //   "?id dbo:birthPlace ?birthPlace}");
+  // console.info(parsed);
+
   return (
-    <Grid container spacing={3} padding={2}>
-      <Grid item xs={3}>
-        <SelectFacetComponent facetLabel="Glosář" facet={glosaryFacet}/>
-      </Grid>
-      <Grid item xs>
-        <SearchResultsComponent/>
-      </Grid>
-    </Grid>
+    <Box>
+      <TextField
+        value={searchPattern}
+        onChange={event => setSearchPattern(event.target.value)}
+      />
+      <Button onClick={handleSearch}>
+        Hledej
+      </Button>
+      <CheckboxFacetComponent facetLabel="Glosář" facet={birthPlaceFacet}/>
+    </Box>
   );
 }
