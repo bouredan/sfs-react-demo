@@ -43,10 +43,10 @@ export function ResultsComponent() {
           </TableHead>
           <TableBody>
             {!!results && results.bindings.map(bindings => (
-              <TableRow key={bindings.id.value}>
+              <TableRow key={bindings["_id"].value}>
                 <TableCell>
-                  <Link href={bindings.id.value}>
-                    {bindings.label.value}
+                  <Link href={bindings["_id"].value} target="_blank">
+                    {bindings["_label"].value}
                   </Link>
                 </TableCell>
               </TableRow>

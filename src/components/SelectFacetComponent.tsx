@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {FormControl, InputLabel, MenuItem, Select, SelectChangeEvent} from "@mui/material";
-import {Facet, FacetOption} from "@bouredan/sfs-api";
+import {Facet, FacetOption, FacetState} from "@bouredan/sfs-api";
 
 
 export interface FacetComponentProps<Value> {
@@ -15,11 +15,16 @@ export function SelectFacetComponent({facetLabel, facet}: FacetComponentProps<st
   const [options, setOptions] = useState<FacetOption[]>();
   const [value, setValue] = useState("");
 
+  const handleFacetStateChange = (facetState: FacetState<string>) => {
+    setOptions(facetState.options);
+    setValue(facetState.value ?? "");
+  };
+
   useEffect(() => {
     // document.addEventListener(facet.id, ((event: CustomEvent<FacetOption[]>) => {
     //   setOptions(event.detail);
     // }) as EventListener);
-    facet.attachSubscriber(setOptions);
+    facet.attachSubscriber(handleFacetStateChange);
     facet.refreshOptions();
   }, [facet]);
 
@@ -30,7 +35,7 @@ export function SelectFacetComponent({facetLabel, facet}: FacetComponentProps<st
   };
 
   return (
-    <FormControl fullWidth>
+    <FormControl fullWidth margin="normal">
       <InputLabel id={labelId}>
         {facetLabel}
       </InputLabel>

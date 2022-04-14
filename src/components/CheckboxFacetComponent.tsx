@@ -1,35 +1,40 @@
 import {ChangeEvent, useEffect, useState} from "react";
-import { FacetOption } from "@bouredan/sfs-api";
+import { FacetOption, FacetState } from "@bouredan/sfs-api";
 import {Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel} from "@mui/material";
 
 import {FacetComponentProps} from "./SelectFacetComponent";
 
 export function CheckboxFacetComponent({facetLabel, facet}: FacetComponentProps<string[]>) {
 
-  const [options, setOptions] = useState<FacetOption[]>();
-  const [value, setValue] = useState<string[]>([]);
+  const [options, setOptions] = useState<FacetOption[]>([]);
+  const [value, setValue] = useState<string[]>();
+
+  const handleFacetStateChange = (facetState: FacetState<string[]>) => {
+    setOptions(facetState.options);
+    setValue(facetState.value);
+  };
 
   useEffect(() => {
     // document.addEventListener(facet.id, ((event: CustomEvent<FacetOption[]>) => {
     //   setOptions(event.detail);
     // }) as EventListener);
-    facet.attachSubscriber(setOptions);
+    facet.attachSubscriber(handleFacetStateChange);
     facet.refreshOptions();
   }, [facet]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const newSelectedValue = event.target.checked ? [...value, event.target.value] : value.filter(val => val !== event.target.value)
-    facet.setValue(newSelectedValue);
-    setValue(newSelectedValue);
+    const prevValue = value ?? [];
+    const newValue = event.target.checked ? [...prevValue, event.target.value] : prevValue.filter(val => val !== event.target.value)
+    facet.setValue(newValue);
   };
 
   return (
-    <FormControl component="fieldset" size="small">
+    <FormControl component="fieldset" size="small" margin="normal">
       <FormLabel component="legend">
         {facetLabel}
       </FormLabel>
       <FormGroup>
-        {!!options && options.map(option => {
+        {options.map(option => {
           return (
             <FormControlLabel
               key={option.value}
@@ -38,7 +43,9 @@ export function CheckboxFacetComponent({facetLabel, facet}: FacetComponentProps<
                 <Checkbox
                   value={option.value}
                   name={option.value}
+                  checked={value ? value.includes(option.value) : false}
                   onChange={handleChange}
+                  size="small"
                 />
               }
             />

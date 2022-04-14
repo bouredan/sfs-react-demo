@@ -1,46 +1,39 @@
-import {CheckboxFacet, SfsApi} from "@bouredan/sfs-api";
+import {CheckboxFacet, SelectFacet, SfsApi} from "@bouredan/sfs-api";
 
 
 export const glosaryFacet = new CheckboxFacet({
   id: "glosary",
-  predicate: "http://www.w3.org/2004/02/skos/core#inScheme",
+  predicate: "<http://www.w3.org/2004/02/skos/core#inScheme>",
   labelPredicates: ["dct:title", "skos:prefLabel"],
 });
 
-export const birthPlaceFacet = new CheckboxFacet({
-  id: "birthPlace",
-  predicate: "<http://dbpedia.org/property/birthPlace>",
-  labelPredicates: ["rdfs:label", "dct:title", "skos:prefLabel"],
-});
+export const subClassOfFacet = new SelectFacet({
+  id: "subClassOf",
+  predicate: "<http://www.w3.org/2000/01/rdf-schema#subClassOf>",
+  labelPredicates: ["skos:prefLabel", "rdfs:label"],
+})
 
-const language = "en";
+const language = "cs";
 
 export const sfsApi = new SfsApi({
-  endpointUrl: "https://dbpedia.org/sparql",
-  // fetch: ((requestInfo, init) => {
-  //   const headers: Headers = new Headers(init?.headers);
-  //   headers.append('Accept', 'application/sparql-results+json');
-  //   headers.append('Content-Type', 'application/x-www-form-urlencoded');
-  //   const body = new URLSearchParams();
-  //   return fetch("https://xn--slovnk-7va.gov.cz/sparql", {
-  //     mode: 'no-cors',
-  //     method: 'POST',
-  //     headers,
-  //     body
-  //   })
-  // }),
+  endpointUrl: "https://xn--slovnk-7va.gov.cz/sparql",
+  facets: [glosaryFacet, subClassOfFacet],
   queryTemplate:
-    `SELECT DISTINCT ?id ?label 
+    `SELECT DISTINCT ?_id ?_label 
 WHERE 
-  { ?id a <http://dbpedia.org/ontology/Writer> .
+  { ?_id a <http://www.w3.org/2004/02/skos/core#Concept> .
+    FILTER isIRI(?_id)
     OPTIONAL
-      { ?id rdfs:label ?_label 
-        FILTER langMatches(lang(?_label), "${language}")
+      { ?_id rdfs:label ?rdfsLabel 
+        FILTER langMatches(lang(?rdfsLabel), "${language}")
       }
-      BIND(coalesce(?_label, ?id) AS ?label) 
+    OPTIONAL
+      { ?_id skos:prefLabel ?prefLabel 
+        FILTER langMatches(lang(?prefLabel), "${language}")
+      }
+      BIND(coalesce(?rdfsLabel, ?prefLabel, ?_id) AS ?_label) 
   }
-ORDER BY ASC(?label)`,
-  facets: [birthPlaceFacet],
+ORDER BY ASC(?_label)`,
   prefixes: {
     rdfs: "http://www.w3.org/2000/01/rdf-schema#",
     skos: "http://www.w3.org/2004/02/skos/core#",
