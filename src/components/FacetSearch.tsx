@@ -1,7 +1,8 @@
 import {useState} from "react";
+
 import {Box, Button, Grid, TextField} from "@mui/material";
 
-import {glosaryFacet, sfsApi, subClassOfFacet} from "../config/FacetSearchConfig";
+import {birthPlaceFacet, nationalityFacet, sfsApiDbpedia} from "../config/FacetSearchConfig";
 import {CheckboxFacetComponent} from "./CheckboxFacetComponent";
 import {SelectFacetComponent} from "./SelectFacetComponent";
 
@@ -11,7 +12,7 @@ export function FacetSearch() {
   const [searchPattern, setSearchPattern] = useState("");
 
   const handleSearch = () => {
-    sfsApi.newSearch(searchPattern);
+    sfsApiDbpedia.newSearch(searchPattern);
   };
 
   return (
@@ -29,9 +30,10 @@ export function FacetSearch() {
           </Button>
         </Grid>
       </Grid>
-      <SelectFacetComponent facetLabel="Je podtřídou" facet={subClassOfFacet}/>
-      {/*<AutocompleteFacetComponent facetLabel="Glosář kopie" facet={glosaryFacet}/>*/}
-      <CheckboxFacetComponent facetLabel="Glosář" facet={glosaryFacet}/>
+      {/*<SelectFacetComponent facetLabel="Je podtřídou" facet={subClassOfFacet}/>*/}
+      {/*<CheckboxFacetComponent facetLabel="Glosář" facet={glosaryFacet}/>*/}
+      <SelectFacetComponent facetLabel="Nationality" facet={nationalityFacet}/>
+      <CheckboxFacetComponent facetLabel="Birth place" facet={birthPlaceFacet}/>
     </Box>
   );
 }

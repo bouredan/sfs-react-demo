@@ -1,6 +1,7 @@
-import {useEffect, useState} from "react";
-import {FormControl, InputLabel, MenuItem, Select, SelectChangeEvent} from "@mui/material";
-import {Facet, FacetOption, FacetState} from "@bouredan/sfs-api";
+import {Facet} from "sfs-api";
+import {useFacet} from "react-sfs";
+
+import {FormControl, InputLabel, LinearProgress, MenuItem, Select, SelectChangeEvent} from "@mui/material";
 
 
 export interface FacetComponentProps<Value> {
@@ -12,36 +13,26 @@ export function SelectFacetComponent({facetLabel, facet}: FacetComponentProps<st
 
   const labelId = `${facet.id}-select-label`;
 
-  const [options, setOptions] = useState<FacetOption[]>();
-  const [value, setValue] = useState("");
-
-  const handleFacetStateChange = (facetState: FacetState<string>) => {
-    setOptions(facetState.options);
-    setValue(facetState.value ?? "");
-  };
-
-  useEffect(() => {
-    // document.addEventListener(facet.id, ((event: CustomEvent<FacetOption[]>) => {
-    //   setOptions(event.detail);
-    // }) as EventListener);
-    facet.attachSubscriber(handleFacetStateChange);
-    facet.refreshOptions();
-  }, [facet]);
-
+  const {
+    options,
+    value,
+    onValueChange,
+    isFetching
+  } = useFacet(facet);
 
   const handleChange = (event: SelectChangeEvent) => {
-    facet.setValue(event.target.value);
-    setValue(event.target.value);
+    onValueChange(event.target.value);
   };
 
   return (
     <FormControl fullWidth margin="normal">
+      {isFetching && <LinearProgress/>}
       <InputLabel id={labelId}>
         {facetLabel}
       </InputLabel>
       <Select
         labelId={labelId}
-        value={value}
+        value={value ?? ""}
         label={facetLabel}
         onChange={handleChange}
       >

@@ -1,5 +1,7 @@
 # SFS React Demo
 
+Check out [sfs-api](https://www.npmjs.com/package/sfs-api) and [react-sfs](https://github.com/bouredan/react-sfs).
+
 In the project directory, you can run:
 
 ### `yarn start`
