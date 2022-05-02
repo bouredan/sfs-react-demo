@@ -1,8 +1,9 @@
-import {ChangeEvent, CSSProperties} from "react";
-import {FixedSizeList} from "react-window";
+import {ChangeEvent} from "react";
+import {Virtuoso} from "react-virtuoso";
+import {FacetOption} from "sfs-api";
 import {useFacet} from "react-sfs";
 
-import {Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, LinearProgress} from "@mui/material";
+import {Checkbox, FormControl, FormControlLabel, FormLabel, LinearProgress} from "@mui/material";
 
 import {FacetComponentProps} from "./SelectFacetComponent";
 
@@ -22,12 +23,31 @@ export function CheckboxFacetComponent({facetLabel, facet}: FacetComponentProps<
     onValueChange(newValue);
   };
 
-  const renderOption = ({index, style}: {index: number, style: CSSProperties}) => {
-    const option = options[index];
+  return (
+    <FormControl
+      component="fieldset"
+      size="small"
+      margin="normal"
+      fullWidth
+    >
+      {isFetching && <LinearProgress/>}
+      <FormLabel component="legend">
+        {facetLabel}
+      </FormLabel>
+      <Virtuoso
+        style={{height: '80vh'}}
+        data={options}
+        overscan={5}
+        itemContent={Option}
+      />
+    </FormControl>
+  );
+
+  function Option(index: number, option: FacetOption) {
+
     return (
       <FormControlLabel
         key={option.value}
-        style={style}
         label={`(${option.count}) ${option.label}`}
         control={
           <Checkbox
@@ -41,26 +61,4 @@ export function CheckboxFacetComponent({facetLabel, facet}: FacetComponentProps<
       />
     );
   }
-
-  return (
-    <FormControl component="fieldset" size="small" margin="normal" fullWidth>
-      {isFetching && <LinearProgress/>}
-      <FormLabel component="legend">
-        {facetLabel}
-      </FormLabel>
-      <FormGroup>
-        <FixedSizeList
-          style={{overflow: "scroll"}}
-          useIsScrolling
-          height={800}
-          itemCount={options.length}
-          itemSize={35}
-          width={"100%"}
-          overscanCount={5}
-        >
-          {renderOption}
-        </FixedSizeList>
-      </FormGroup>
-    </FormControl>
-  );
 }

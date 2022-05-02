@@ -1035,7 +1035,7 @@
     core-js-pure "^3.20.2"
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@^7.0.0", "@babel/runtime@^7.10.2", "@babel/runtime@^7.12.5", "@babel/runtime@^7.13.10", "@babel/runtime@^7.16.3", "@babel/runtime@^7.17.2", "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.2", "@babel/runtime@^7.8.4", "@babel/runtime@^7.8.7", "@babel/runtime@^7.9.2":
+"@babel/runtime@^7.10.2", "@babel/runtime@^7.12.5", "@babel/runtime@^7.13.10", "@babel/runtime@^7.16.3", "@babel/runtime@^7.17.2", "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.2", "@babel/runtime@^7.8.4", "@babel/runtime@^7.8.7", "@babel/runtime@^7.9.2":
   version "7.17.9"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.17.9.tgz#d19fbf802d01a8cb6cf053a64e472d42c434ba72"
   integrity sha512-lSiBBvodq29uShpWGNbgFdKYNiFDo5/HIYsaCEY9ff4sb10x9jizo2+pRrSyF4jKZCXqgzuqBOQKbUm90gQwJg==
@@ -2215,6 +2215,18 @@
   dependencies:
     "@typescript-eslint/types" "4.33.0"
     eslint-visitor-keys "^2.0.0"
+
+"@virtuoso.dev/react-urx@^0.2.12":
+  version "0.2.13"
+  resolved "https://registry.yarnpkg.com/@virtuoso.dev/react-urx/-/react-urx-0.2.13.tgz#e2cfc42d259d2a002695e7517d34cb97b64ee9c4"
+  integrity sha512-MY0ugBDjFb5Xt8v2HY7MKcRGqw/3gTpMlLXId2EwQvYJoC8sP7nnXjAxcBtTB50KTZhO0SbzsFimaZ7pSdApwA==
+  dependencies:
+    "@virtuoso.dev/urx" "^0.2.13"
+
+"@virtuoso.dev/urx@^0.2.12", "@virtuoso.dev/urx@^0.2.13":
+  version "0.2.13"
+  resolved "https://registry.yarnpkg.com/@virtuoso.dev/urx/-/urx-0.2.13.tgz#a65e7e8d923cb03397ac876bfdd45c7f71c8edf1"
+  integrity sha512-iirJNv92A1ZWxoOHHDYW/1KPoi83939o83iUBQHIim0i3tMeSKEh+bxhJdTHQ86Mr4uXx9xGUTq69cp52ZP8Xw==
 
 "@webassemblyjs/ast@1.9.0":
   version "1.9.0"
@@ -7435,11 +7447,6 @@ media-typer@0.3.0:
   resolved "https://registry.yarnpkg.com/media-typer/-/media-typer-0.3.0.tgz#8710d7af0aa626f8fffa1ce00168545263255748"
   integrity sha1-hxDXrwqmJvj/+hzgAWhUUmMlV0g=
 
-"memoize-one@>=3.1.1 <6":
-  version "5.2.1"
-  resolved "https://registry.yarnpkg.com/memoize-one/-/memoize-one-5.2.1.tgz#8337aa3c4335581839ec01c3d594090cebe8f00e"
-  integrity sha512-zYiwtZUcYyXKo/np96AGZAckk+FWWsUdJ3cHGGmld7+AhvcWmQyGCYUh1hc4Q/pkOhb65dQR/pqCyK0cOaHz4Q==
-
 memory-fs@^0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/memory-fs/-/memory-fs-0.4.1.tgz#3a9a20b8462523e447cfbc7e8bb80ed667bfc552"
@@ -9508,12 +9515,12 @@ react-scripts@4.0.3:
   optionalDependencies:
     fsevents "^2.1.3"
 
-react-sfs@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/react-sfs/-/react-sfs-1.0.0.tgz#550496d68329fd845a089506812ce9331a79d3e7"
-  integrity sha512-ku2JkP5ZO1Gsp3TbCmgdySvUvDNDJkwRJt3PagsIeRdpA34h8D3zcgslDldVIo9HmwnXPq/aIcgxlMtOQu1myw==
+react-sfs@latest:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-sfs/-/react-sfs-1.0.1.tgz#40a761a02c228021df150e432eb4b33fdc39c94c"
+  integrity sha512-M0vZMNGdYM+NAnP6DKp/gB5SWWTCeZ88cUOZbP21nz7WioByJfMFZ0YtEBVHEn/ZZXXlVQA3py806bPUpU1imQ==
   dependencies:
-    sfs-api "^1.0.0"
+    sfs-api latest
 
 react-transition-group@^4.4.2:
   version "4.4.2"
@@ -9525,13 +9532,13 @@ react-transition-group@^4.4.2:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
-react-window@^1.8.6:
-  version "1.8.6"
-  resolved "https://registry.yarnpkg.com/react-window/-/react-window-1.8.6.tgz#d011950ac643a994118632665aad0c6382e2a112"
-  integrity sha512-8VwEEYyjz6DCnGBsd+MgkD0KJ2/OXFULyDtorIiTz+QzwoP94tBoA7CnbtyXMm+cCeAUER5KJcPtWl9cpKbOBg==
+react-virtuoso@^2.10.2:
+  version "2.10.2"
+  resolved "https://registry.yarnpkg.com/react-virtuoso/-/react-virtuoso-2.10.2.tgz#a4002f05019a07c69fca342c5b745451e2baa2ce"
+  integrity sha512-nQ8Wt/q64q6walcXo4y9SXkvZqjwuLiNUv7aKW3poKoZno8agTgeqcX1GMq3GPlaJ8wR5XMGwBxX4HONBMAGfg==
   dependencies:
-    "@babel/runtime" "^7.0.0"
-    memoize-one ">=3.1.1 <6"
+    "@virtuoso.dev/react-urx" "^0.2.12"
+    "@virtuoso.dev/urx" "^0.2.12"
 
 react@^17.0.2:
   version "17.0.2"
@@ -10173,10 +10180,10 @@ setprototypeof@1.2.0:
   resolved "https://registry.yarnpkg.com/setprototypeof/-/setprototypeof-1.2.0.tgz#66c9a24a73f9fc28cbe66b09fed3d33dcaf1b424"
   integrity sha512-E5LDX7Wrp85Kil5bhZv46j8jOeboKq5JMmYM3gVGdGH8xFpPWXUMsNrlODCrkoxMEeNi/XZIwuRvY4XNwYMJpw==
 
-sfs-api@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/sfs-api/-/sfs-api-1.0.0.tgz#bfd915ac8de10f201eecd653ad7cef496469aa61"
-  integrity sha512-+t/c+g/3rbzHb+0xjDp9MAnsbesp9h/c7GlsXvcENXEx2wspJTw4JgN5hUB+sKtS67+prI22ODPwOSo/nWwj7w==
+sfs-api@latest:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/sfs-api/-/sfs-api-1.0.1.tgz#91062ba5d2270949f34d030b9271c3d04172494f"
+  integrity sha512-tO398+qciPdhQ3stuGV7QuoT5ZunttOOT12g91vHNu5ztFBg4o/HJqjhWLQQqES3aWpVRfIY+kBDxiVWwOR66w==
   dependencies:
     "@rdfjs/data-model" "^2.0.1"
     fetch-sparql-endpoint "^2.4.0"
