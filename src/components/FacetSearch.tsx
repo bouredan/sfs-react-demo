@@ -2,7 +2,7 @@ import {useState} from "react";
 
 import {Box, Button, Grid, TextField} from "@mui/material";
 
-import {glosaryFacet, sfsApi, subClassOfFacet} from "../config/FacetSearchConfig";
+import {birthPlaceFacet, nationalityFacet, sfsApi} from "../config/FacetSearchConfig";
 import {CheckboxFacetComponent} from "./CheckboxFacetComponent";
 import {SelectFacetComponent} from "./SelectFacetComponent";
 
@@ -26,14 +26,12 @@ export function FacetSearch() {
         </Grid>
         <Grid item>
           <Button onClick={handleSearch} variant="contained">
-            Hledej
+            Search
           </Button>
         </Grid>
       </Grid>
-      <SelectFacetComponent facetLabel="Je podtřídou" facet={subClassOfFacet}/>
-      <CheckboxFacetComponent facetLabel="Glosář" facet={glosaryFacet}/>
-      {/*<SelectFacetComponent facetLabel="Nationality" facet={nationalityFacet}/>*/}
-      {/*<CheckboxFacetComponent facetLabel="Birth place" facet={birthPlaceFacet}/>*/}
+      <SelectFacetComponent facetLabel="Nationality" facet={nationalityFacet}/>
+      <CheckboxFacetComponent facetLabel="Birth place" facet={birthPlaceFacet}/>
     </Box>
   );
 }

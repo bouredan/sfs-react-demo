@@ -1,7 +1,7 @@
 import {Grid} from "@mui/material";
 
 import {FacetSearch} from "./components/FacetSearch";
-import {ResultsComponent} from "./components/ResultsComponent";
+import {ResultsTableComponent} from "./components/ResultsTableComponent";
 
 
 function App() {
@@ -13,7 +13,7 @@ function App() {
           <FacetSearch/>
         </Grid>
         <Grid item xs>
-          <ResultsComponent/>
+          <ResultsTableComponent/>
         </Grid>
       </Grid>
     </div>

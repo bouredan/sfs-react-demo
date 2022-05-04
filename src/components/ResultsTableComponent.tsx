@@ -1,5 +1,5 @@
-import {CSSProperties} from "react";
-import {FixedSizeList} from "react-window";
+import {Virtuoso} from "react-virtuoso";
+import {Bindings} from "sfs-api";
 import {useFacetSearch} from "react-sfs";
 
 import {
@@ -14,7 +14,7 @@ import {
   TableRow
 } from "@mui/material";
 
-import {sfsApiDbpedia} from "../config/FacetSearchConfig";
+import {sfsApi} from "../config/FacetSearchConfig";
 
 
 export function ResultsTableComponent() {
@@ -22,23 +22,7 @@ export function ResultsTableComponent() {
   const {
     results,
     isFetching,
-  } = useFacetSearch(sfsApiDbpedia);
-
-  const renderRow = ({index, style}: {index: number, style: CSSProperties}) => {
-    if (!results) {
-      return null;
-    }
-    const bindings = results.bindings[index];
-    return (
-      <TableRow key={bindings["_id"].value} style={style}>
-        <TableCell>
-          <Link href={bindings["_id"].value} target="_blank">
-            {bindings["_label"].value}
-          </Link>
-        </TableCell>
-      </TableRow>
-    )
-  }
+  } = useFacetSearch(sfsApi);
 
   return (
     <Box>
@@ -56,19 +40,27 @@ export function ResultsTableComponent() {
           </TableHead>
           <TableBody>
             {results &&
-              <FixedSizeList
-                height={1000}
-                itemCount={results.bindings.length}
-                itemSize={35}
-                width={"100%"}
-                overscanCount={5}
-              >
-                {renderRow}
-              </FixedSizeList>
+              <Virtuoso
+                style={{height: '95vh'}}
+                data={results.bindings}
+                itemContent={ResultsRow}
+              />
             }
           </TableBody>
         </Table>
       </TableContainer>
     </Box>
   );
+
+  function ResultsRow(index: number, bindings: Bindings) {
+    return (
+      <TableRow key={bindings["_id"].value}>
+        <TableCell>
+          <Link href={bindings["_id"].value} target="_blank">
+            {bindings["_label"].value}
+          </Link>
+        </TableCell>
+      </TableRow>
+    )
+  }
 }
