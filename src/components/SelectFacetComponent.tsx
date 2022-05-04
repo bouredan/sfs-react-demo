@@ -27,7 +27,7 @@ export function SelectFacetComponent({facetLabel, facet}: FacetComponentProps<st
   return (
     <FormControl fullWidth margin="normal">
       {isFetching && <LinearProgress/>}
-      <InputLabel id={labelId}>
+      <InputLabel id={labelId} shrink>
         {facetLabel}
       </InputLabel>
       <Select
@@ -35,9 +35,11 @@ export function SelectFacetComponent({facetLabel, facet}: FacetComponentProps<st
         value={value ?? ""}
         label={facetLabel}
         onChange={handleChange}
+        notched
+        displayEmpty
       >
         <MenuItem value="">
-          <em>None</em>
+          <em>Žádný výběr</em>
         </MenuItem>
         {!!options && options.map(option => (
           <MenuItem key={option.value} value={option.value}>

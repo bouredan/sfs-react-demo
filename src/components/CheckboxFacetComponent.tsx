@@ -3,7 +3,7 @@ import {Virtuoso} from "react-virtuoso";
 import {FacetOption} from "sfs-api";
 import {useFacet} from "react-sfs";
 
-import {Checkbox, FormControl, FormControlLabel, FormLabel, LinearProgress} from "@mui/material";
+import {Box, Checkbox, FormControl, FormControlLabel, FormLabel, LinearProgress} from "@mui/material";
 
 import {FacetComponentProps} from "./SelectFacetComponent";
 
@@ -26,7 +26,6 @@ export function CheckboxFacetComponent({facetLabel, facet}: FacetComponentProps<
   return (
     <FormControl
       component="fieldset"
-      size="small"
       margin="normal"
       fullWidth
     >
@@ -46,19 +45,21 @@ export function CheckboxFacetComponent({facetLabel, facet}: FacetComponentProps<
   function Option(index: number, option: FacetOption) {
 
     return (
-      <FormControlLabel
-        key={option.value}
-        label={`(${option.count}) ${option.label}`}
-        control={
-          <Checkbox
-            value={option.value}
-            name={option.value}
-            checked={value ? value.includes(option.value) : false}
-            onChange={handleChange}
-            size="small"
-          />
-        }
-      />
+      <Box marginLeft={2}>
+        <FormControlLabel
+          key={option.value}
+          label={`(${option.count}) ${option.label}`}
+          control={
+            <Checkbox
+              value={option.value}
+              name={option.value}
+              checked={value ? value.includes(option.value) : false}
+              onChange={handleChange}
+              size="small"
+            />
+          }
+        />
+      </Box>
     );
   }
 }

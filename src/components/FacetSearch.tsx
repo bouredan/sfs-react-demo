@@ -1,6 +1,7 @@
-import {useState} from "react";
+import {FormEvent, useState} from "react";
 
-import {Box, Button, Grid, TextField} from "@mui/material";
+import {Box, Button, Grid, IconButton, InputAdornment, TextField} from "@mui/material";
+import {Clear as ClearIcon, Search as SearchIcon} from "@mui/icons-material";
 
 import {glosaryFacet, sfsApi, subClassOfFacet} from "../config/FacetSearchConfig";
 import {CheckboxFacetComponent} from "./CheckboxFacetComponent";
@@ -11,29 +12,45 @@ export function FacetSearch() {
 
   const [searchPattern, setSearchPattern] = useState("");
 
-  const handleSearch = () => {
-    sfsApi.newSearch(searchPattern)
-  };
+  const handleSearchSubmit = (event: FormEvent) => {
+    event.preventDefault();
+    sfsApi.newSearch(searchPattern);
+  }
 
   return (
     <Box>
-      <Grid container alignItems="center" spacing={1}>
-        <Grid item>
-          <TextField
-            value={searchPattern}
-            onChange={event => setSearchPattern(event.target.value)}
-          />
+      <form onSubmit={handleSearchSubmit}>
+        <Grid container alignItems="center" spacing={1}>
+          <Grid item xs>
+            <TextField
+              label="Hledat dle názvu"
+              value={searchPattern}
+              onChange={event => setSearchPattern(event.target.value)}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon/>
+                  </InputAdornment>
+                ),
+                endAdornment: !!searchPattern && (
+                  <IconButton onClick={() => setSearchPattern("")}>
+                    <ClearIcon/>
+                  </IconButton>
+                )
+              }}
+              margin="normal"
+              fullWidth
+            />
+          </Grid>
+          <Grid item>
+            <Button variant="contained" type="submit">
+              Hledej
+            </Button>
+          </Grid>
         </Grid>
-        <Grid item>
-          <Button onClick={handleSearch} variant="contained">
-            Hledej
-          </Button>
-        </Grid>
-      </Grid>
+      </form>
       <SelectFacetComponent facetLabel="Je podtřídou" facet={subClassOfFacet}/>
       <CheckboxFacetComponent facetLabel="Glosář" facet={glosaryFacet}/>
-      {/*<SelectFacetComponent facetLabel="Nationality" facet={nationalityFacet}/>*/}
-      {/*<CheckboxFacetComponent facetLabel="Birth place" facet={birthPlaceFacet}/>*/}
     </Box>
   );
 }

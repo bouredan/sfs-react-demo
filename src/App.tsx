@@ -1,4 +1,4 @@
-import {Grid} from "@mui/material";
+import {Box, Grid, Typography} from "@mui/material";
 
 import {FacetSearch} from "./components/FacetSearch";
 import {ResultsComponent} from "./components/ResultsComponent";
@@ -7,8 +7,11 @@ import {ResultsComponent} from "./components/ResultsComponent";
 function App() {
 
   return (
-    <div>
-      <Grid container spacing={3} padding={2}>
+    <Box padding={2}>
+      <Typography variant="h3">
+        Prohlížeč sémantického slovníku pojmů MVČR
+      </Typography>
+      <Grid container spacing={2} padding={2}>
         <Grid item xs={4}>
           <FacetSearch/>
         </Grid>
@@ -16,7 +19,7 @@ function App() {
           <ResultsComponent/>
         </Grid>
       </Grid>
-    </div>
+    </Box>
   );
 }
 
