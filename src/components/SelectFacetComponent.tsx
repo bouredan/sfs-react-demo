@@ -1,7 +1,7 @@
 import {Facet} from "sfs-api";
 import {useFacet} from "react-sfs";
 
-import {FormControl, InputLabel, LinearProgress, MenuItem, Select, SelectChangeEvent} from "@mui/material";
+import {FormControl, InputLabel, LinearProgress, MenuItem, Select, SelectChangeEvent, Typography} from "@mui/material";
 
 
 export interface FacetComponentProps<Value> {
@@ -17,12 +17,21 @@ export function SelectFacetComponent({facetLabel, facet}: FacetComponentProps<st
     options,
     value,
     onValueChange,
-    isFetching
+    isFetching,
+    error,
   } = useFacet(facet);
 
   const handleChange = (event: SelectChangeEvent) => {
     onValueChange(event.target.value);
   };
+
+  if (error) {
+    return (
+      <Typography align="center" padding={1}>
+        Error! Facet is not available.
+      </Typography>
+    );
+  }
 
   return (
     <FormControl fullWidth margin="normal">

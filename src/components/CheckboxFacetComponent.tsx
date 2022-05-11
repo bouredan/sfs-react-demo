@@ -3,7 +3,7 @@ import {Virtuoso} from "react-virtuoso";
 import {FacetOption} from "sfs-api";
 import {useFacet} from "react-sfs";
 
-import {Box, Checkbox, FormControl, FormControlLabel, FormLabel, LinearProgress} from "@mui/material";
+import {Box, Checkbox, FormControl, FormControlLabel, FormLabel, LinearProgress, Typography} from "@mui/material";
 
 import {FacetComponentProps} from "./SelectFacetComponent";
 
@@ -14,7 +14,8 @@ export function CheckboxFacetComponent({facetLabel, facet}: FacetComponentProps<
     options,
     value,
     onValueChange,
-    isFetching
+    isFetching,
+    error
   } = useFacet(facet);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -22,6 +23,14 @@ export function CheckboxFacetComponent({facetLabel, facet}: FacetComponentProps<
     const newValue = event.target.checked ? [...prevValue, event.target.value] : prevValue.filter(val => val !== event.target.value)
     onValueChange(newValue);
   };
+
+  if (error) {
+    return (
+      <Typography align="center" padding={1}>
+        Error! Facet is not available.
+      </Typography>
+    );
+  }
 
   return (
     <FormControl
@@ -43,7 +52,6 @@ export function CheckboxFacetComponent({facetLabel, facet}: FacetComponentProps<
   );
 
   function Option(index: number, option: FacetOption) {
-
     return (
       <Box marginLeft={2}>
         <FormControlLabel
