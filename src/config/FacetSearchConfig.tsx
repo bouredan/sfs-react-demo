@@ -1,5 +1,11 @@
 import {CheckboxFacet, SelectFacet, SfsApi} from "sfs-api";
 
+export const typeFacet = new SelectFacet({
+  id: "type",
+  predicate: "rdf:type",
+  labelPredicates: ["skos:prefLabel", "rdfs:label"],
+});
+
 export const subClassOfFacet = new SelectFacet({
   id: "subClassOf",
   predicate: "rdfs:subClassOf",
@@ -16,7 +22,7 @@ const language = "cs";
 
 export const sfsApi = new SfsApi({
   endpointUrl: "https://xn--slovnk-7va.gov.cz/sparql",
-  facets: [subClassOfFacet, glosaryFacet],
+  facets: [typeFacet, subClassOfFacet, glosaryFacet],
   baseQuery:
     `SELECT DISTINCT ?_id ?_label ?definition ?schemeId ?schemeLabel ?typeId ?typeLabel ?superClassId ?superClassLabel 
 WHERE 
@@ -46,11 +52,7 @@ WHERE
       }
     OPTIONAL
       { ?_id a ?typeId
-        FILTER (
-          isIRI(?typeId) 
-          && !strstarts(str(?typeId), str(owl:)) 
-          && !strstarts(str(?typeId), str(skos:))
-        )
+        FILTER (isIRI(?typeId))
         OPTIONAL
           { ?typeId skos:prefLabel ?typeLabel1
             FILTER (langMatches(lang(?typeLabel1), "${language}"))
@@ -69,6 +71,7 @@ WHERE
   }
 ORDER BY ASC(?_label)`,
   prefixes: {
+    rdf: "https://www.w3.org/1999/02/22-rdf-syntax-ns#",
     rdfs: "http://www.w3.org/2000/01/rdf-schema#",
     skos: "http://www.w3.org/2004/02/skos/core#",
     owl: "http://www.w3.org/2002/07/owl#",

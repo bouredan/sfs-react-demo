@@ -3,7 +3,7 @@ import {FormEvent, useState} from "react";
 import {Box, Button, Grid, IconButton, InputAdornment, TextField} from "@mui/material";
 import {Clear as ClearIcon, Search as SearchIcon} from "@mui/icons-material";
 
-import {glosaryFacet, sfsApi, subClassOfFacet} from "../config/FacetSearchConfig";
+import {glosaryFacet, sfsApi, subClassOfFacet, typeFacet} from "../config/FacetSearchConfig";
 import {CheckboxFacetComponent} from "./CheckboxFacetComponent";
 import {SelectFacetComponent} from "./SelectFacetComponent";
 
@@ -49,6 +49,7 @@ export function FacetSearch() {
           </Grid>
         </Grid>
       </form>
+      <SelectFacetComponent facetLabel="Je typu" facet={typeFacet}/>
       <SelectFacetComponent facetLabel="Je podtřídou" facet={subClassOfFacet}/>
       <CheckboxFacetComponent facetLabel="Glosář" facet={glosaryFacet}/>
     </Box>

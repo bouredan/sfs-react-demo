@@ -1625,11 +1625,6 @@
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.5.tgz#db5a11bf66bdab39569719555b0f76e138d7bd64"
   integrity sha512-9X2obfABZuDVLCgPK9aX0a/x4jaOEweTTWE2+9sr0Qqqevj2Uv5XorvusThmc9XGYpS9yI+fhh8RTafBtGposw==
 
-"@rdfjs/data-model@^2.0.1":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@rdfjs/data-model/-/data-model-2.0.1.tgz#410aeaea65de9bac605b63172baa64384b65ca98"
-  integrity sha512-oRDYpy7/fJ9NNjS+M7m+dbnhi4lOWYGbBiM/A+u9bBExnN6ifXUF5mUsFxwZaQulmwTDaMhKERdV6iKTBUMgtw==
-
 "@rdfjs/types@*":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@rdfjs/types/-/types-1.1.0.tgz#098f180b7cccb03bb416c7b4d03baaa9d480e36b"
@@ -9414,12 +9409,12 @@ react-scripts@4.0.3:
   optionalDependencies:
     fsevents "^2.1.3"
 
-react-sfs@^1.0.8:
-  version "1.0.8"
-  resolved "https://registry.yarnpkg.com/react-sfs/-/react-sfs-1.0.8.tgz#e20ef61b03c29133b2bf16a8b650c35efe8f61a5"
-  integrity sha512-6OebSXb0qKQC3D58UiHjNR5yB6+jXWBi8r//0zz7Wctv9jjBDJz8sZvwaVt4vbs7Oy86er3ZX+9bq0vN3IWHgQ==
+react-sfs@^1.0.10:
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/react-sfs/-/react-sfs-1.0.10.tgz#a24b5b47d8993c4c6e498b21f536729c8744f820"
+  integrity sha512-JDzD86jzleEh0Q1njosrIEaBnol5xnh5cNnYuM/BDVSZnElwPlEAhKKH06Ibv7J4Pt8RU2zIVMeBHY6F706NqQ==
   dependencies:
-    sfs-api "^1.0.5"
+    sfs-api "^1.0.11"
 
 react-transition-group@^4.4.2:
   version "4.4.2"
@@ -10071,13 +10066,13 @@ setprototypeof@1.2.0:
   resolved "https://registry.yarnpkg.com/setprototypeof/-/setprototypeof-1.2.0.tgz#66c9a24a73f9fc28cbe66b09fed3d33dcaf1b424"
   integrity sha512-E5LDX7Wrp85Kil5bhZv46j8jOeboKq5JMmYM3gVGdGH8xFpPWXUMsNrlODCrkoxMEeNi/XZIwuRvY4XNwYMJpw==
 
-sfs-api@^1.0.5, sfs-api@^1.0.7:
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/sfs-api/-/sfs-api-1.0.7.tgz#89bdaaf60e9cfb178c1f685f23818f2dbda4d8ce"
-  integrity sha512-9WQojWt6etTPTz4zWwhqgzs7nc+Wp3jVuwh4kf33Za2n/Y0JD+zOA/PcpWvJOior4KgBWvK/VMZahozVrLY6ww==
+sfs-api@^1.0.11:
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/sfs-api/-/sfs-api-1.0.11.tgz#af877c2a42d5007ec51cadf95f979d492200a510"
+  integrity sha512-XlfMYihT0JU5sMIYAr834Nz4akMlitGJjrM84sPbtCGgGIZP4T8A29nE6BxzLVVMJm2orPPimOyfQG20KpsTgQ==
   dependencies:
-    "@rdfjs/data-model" "^2.0.1"
     fetch-sparql-endpoint "^2.4.0"
+    rdf-data-factory "^1.1.0"
     sparqljs "^3.5.1"
 
 sha.js@^2.4.0, sha.js@^2.4.8:
