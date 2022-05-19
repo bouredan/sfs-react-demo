@@ -8,7 +8,7 @@ import {Box, Checkbox, FormControl, FormControlLabel, FormLabel, LinearProgress,
 import {FacetComponentProps} from "./SelectFacetComponent";
 
 
-export function CheckboxFacetComponent({facetLabel, facet}: FacetComponentProps<string[]>) {
+export function CheckboxFacetComponent({facetLabel, facet, disabled}: FacetComponentProps<string[]>) {
 
   const {
     options,
@@ -36,6 +36,7 @@ export function CheckboxFacetComponent({facetLabel, facet}: FacetComponentProps<
     <FormControl
       component="fieldset"
       margin="normal"
+      disabled={disabled}
       fullWidth
     >
       {isFetching && <LinearProgress/>}

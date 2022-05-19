@@ -1,6 +1,6 @@
 {
   "short_name": "SFS React demo",
-  "name": "Demo demonstrating usage of sfs-api and react-sfs",
+  "name": "Demo demonstrating usage of sfs-api and react-sfs packages",
   "icons": [
     {
       "src": "favicon.ico",

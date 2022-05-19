@@ -1,4 +1,5 @@
 import {FormEvent, useState} from "react";
+import {useFacetSearch} from "react-sfs";
 
 import {Box, Button, Grid, IconButton, InputAdornment, TextField} from "@mui/material";
 import {Clear as ClearIcon, Search as SearchIcon} from "@mui/icons-material";
@@ -11,6 +12,8 @@ import {SelectFacetComponent} from "./SelectFacetComponent";
 export function FacetSearch() {
 
   const [searchPattern, setSearchPattern] = useState("");
+
+  const {isFetching} = useFacetSearch(sfsApi);
 
   const handleSearchSubmit = (event: FormEvent) => {
     event.preventDefault();
@@ -49,9 +52,21 @@ export function FacetSearch() {
           </Grid>
         </Grid>
       </form>
-      <SelectFacetComponent facetLabel="Je typu" facet={typeFacet}/>
-      <SelectFacetComponent facetLabel="Je podtřídou" facet={subClassOfFacet}/>
-      <CheckboxFacetComponent facetLabel="Glosář" facet={glosaryFacet}/>
+      <SelectFacetComponent
+        facetLabel="Je typu"
+        facet={typeFacet}
+        disabled={isFetching}
+      />
+      <SelectFacetComponent
+        facetLabel="Je podtřídou"
+        facet={subClassOfFacet}
+        disabled={isFetching}
+      />
+      <CheckboxFacetComponent
+        facetLabel="Glosář"
+        facet={glosaryFacet}
+        disabled={isFetching}
+      />
     </Box>
   );
 }

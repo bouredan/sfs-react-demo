@@ -7,9 +7,10 @@ import {FormControl, InputLabel, LinearProgress, MenuItem, Select, SelectChangeE
 export interface FacetComponentProps<Value> {
   facetLabel: string,
   facet: Facet<Value>,
+  disabled?: boolean,
 }
 
-export function SelectFacetComponent({facetLabel, facet}: FacetComponentProps<string>) {
+export function SelectFacetComponent({facetLabel, facet, disabled}: FacetComponentProps<string>) {
 
   const labelId = `${facet.id}-select-label`;
 
@@ -34,7 +35,11 @@ export function SelectFacetComponent({facetLabel, facet}: FacetComponentProps<st
   }
 
   return (
-    <FormControl fullWidth margin="normal">
+    <FormControl
+      margin="normal"
+      disabled={disabled}
+      fullWidth
+    >
       {isFetching && <LinearProgress/>}
       <InputLabel id={labelId} shrink>
         {facetLabel}
